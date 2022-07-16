@@ -112,29 +112,28 @@ const book3$ = fromPromise(
   })
 );
 
-const source = forkJoin([book1$, book2$, book3$]);
-source.subscribe(observer);
+// const source = forkJoin([book1$, book2$, book3$]);
+// source.subscribe(observer);
 
 function RequestOneBook(source: Observable) {
-  // console.log('RequestBook work!');
+  console.log('subscribe!');
   return new Observable((observer) => {
     const subscription = new Subscription();
     source.subscribe({
       next: (value: any) => {
-        // console.log('next work');
         observer.next(value);
       },
       error: (err: any) => {
-        // console.log('error work');
         observer.error(err);
       },
       complete: () => {
-        // console.log('complete work');
         observer.complete();
       },
     });
 
-    return () => {};
+    return () => {
+      console.log('unsubscribe');
+    };
   });
 }
 
