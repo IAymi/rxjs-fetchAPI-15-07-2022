@@ -43,6 +43,13 @@ class Observable {
   }
 }
 
+const observer: Observer = {
+  next: (value: any) => console.log('observer next', value),
+  error: (err: any) => console.log('observer error', err),
+  complete: () => console.log('observer complete'),
+};
+// Start coding
+
 function fromPromise<T>(promise: Promise<T>) {
   return new Observable((observer) => {
     let closed = false;
@@ -89,12 +96,6 @@ function forkJoin(sourceList: Observable[]) {
     };
   });
 }
-
-const observer: Observer = {
-  next: (value: any) => console.log('observer next', value),
-  error: (err: any) => console.log('observer error', err),
-  complete: () => console.log('observer complete'),
-};
 
 const book1$ = fromPromise(
   fetch('https://www.anapioficeandfire.com/api/books/1', {
